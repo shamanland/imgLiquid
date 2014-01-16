@@ -73,6 +73,7 @@ imgLiquid.injectCss = '.imgLiquid img {visibility:hidden}';
 				horizontalAlign: 'center',			//	'left'	//	'right'  // '50%'  // '10%'
 				useBackgroundSize: true,
 				useDataHtmlAttr: true,
+				childIndex: -1,                     // use certain child instead first
 
 				responsive: true,					/* Only for use with BackgroundSize false (or old browsers) */
 				delay: 0,							/* Only for use with BackgroundSize false (or old browsers) */
@@ -112,7 +113,7 @@ imgLiquid.injectCss = '.imgLiquid img {visibility:hidden}';
 
 				var settings = imgLiquidRoot.settings,
 				$imgBoxCont = $(this),
-				$img = $('img:first',$imgBoxCont);
+				$img = $($('img', $imgBoxCont).get(Math.max(0, settings.childIndex)));
 				if (!$img.length) {onError(); return;}
 
 
