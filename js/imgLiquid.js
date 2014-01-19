@@ -74,6 +74,7 @@ imgLiquid.injectCss = '.imgLiquid img {visibility:hidden}';
 				useBackgroundSize: true,
 				useDataHtmlAttr: true,
 				childIndex: -1,                     // use certain child instead first
+				hideOnlyFirstLevel: false,          // hide only first level of images
 
 				responsive: true,					/* Only for use with BackgroundSize false (or old browsers) */
 				delay: 0,							/* Only for use with BackgroundSize false (or old browsers) */
@@ -168,7 +169,8 @@ imgLiquid.injectCss = '.imgLiquid img {visibility:hidden}';
 						'height':	'100%'
 					});
 
-					$('img', $imgBoxCont).css({'display': 'none'});
+					var imgSelector = settings.hideOnlyFirstLevel ? '>img' : 'img';
+					$(imgSelector, $imgBoxCont).css({'display': 'none'});
 
 					if (settings.onItemFinish) settings.onItemFinish($i, $imgBoxCont, $img); /* << CallBack */
 
@@ -211,10 +213,9 @@ imgLiquid.injectCss = '.imgLiquid img {visibility:hidden}';
 					$img.data('imgLiquid_oldProcessed', false);
 					$img.data('oldSrc', $img.attr('src'));
 
-
 					// Hide others images
-					$('img:not(:first)', $imgBoxCont).css('display', 'none');
-
+					var notFirstImgSelector = settings.hideOnlyFirstLevel ? '>img:not(:first)' : 'img:not(:first)';
+					$(notFirstImgSelector, $imgBoxCont).css('display', 'none');
 
 					// CSSs
 					$imgBoxCont.css({'overflow': 'hidden'});
